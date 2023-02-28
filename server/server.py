@@ -4,8 +4,7 @@ from flask import Flask, Response, redirect, render_template, request, jsonify
 from flask_bcrypt import Bcrypt
 from config import config
 from modules.db.db import DB
-from robots.robots import Robots
-from sessions.sessions import Sessions
+from modules.db.sessions import SessionHandler
 import json
 
 from flask_socketio import SocketIO, join_room, leave_room, send, emit
@@ -15,7 +14,7 @@ webdb = DB( config.DB_CONFIG )
 webdb.db_create()
 webdb.close()
 
-app = Flask(__name__, static_url_path='', static_folder='public/static', template_folder='public/templates')
+app = Flask(__name__, static_url_path='/static', static_folder='build/static', template_folder='build')
 socket = SocketIO(app)
 
 def send_response(is_success=False, payload=None):
@@ -31,7 +30,7 @@ def root():
     sessionHandler = SessionHandler(config.DB_CONFIG)
     maps = sessionHandler.get_all()
     
-    return render_template('root.html', mapdata=maps)
+    return render_template('index.html', mapdata=maps)
 
 @app.errorhandler(404)
 def error_404(e):
