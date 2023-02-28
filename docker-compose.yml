@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: rethinkdb:latest
+    ports:
+      - 8080:8080
+    command: ['rethinkdb', '--initial-password', '7db2ca0e-760f-4dcb-8d69-639ec18cdb0f', '--bind', 'all']
+
+  web:
+    image: webapp-flask
+    build:
+      context: .
+      dockerfile: Dockerfile-flask
+    volumes:
+      - './server:/server'
+    ports:
+      - 8000:8000
+    command: ['python', 'server.py']
+    environment:
+      - DB_HOST=db
+      - DB_PORT=28015
+      - DB_USER=admin
+      - DB_PASS=${DB_PASS}
+    depends_on:
+      - db
