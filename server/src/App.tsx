@@ -18,7 +18,8 @@ export default class App extends React.Component<{}, formStruct> {
 
       var data = {
         api_key:'',
-        site_url:'',
+        //site_url:'',
+        chat_site_content: '',
         prompt: '',
       }
 
@@ -26,9 +27,14 @@ export default class App extends React.Component<{}, formStruct> {
         data.api_key = e.target.chat_api_key.value;
       }
 
-      if (e.target.hasOwnProperty('chat_site_url')) {
-        data.site_url = e.target.chat_site_url.value;
+      // if (e.target.hasOwnProperty('chat_site_url')) {
+      //   data.site_url = e.target.chat_site_url.value;
+      // }
+
+      if (e.target.hasOwnProperty('chat_site_content')) {
+        data.chat_site_content = e.target.chat_site_content.value;
       }
+
 
       if (e.target.hasOwnProperty('chat_prompt')) {
         data.prompt = e.target.chat_prompt.value;
@@ -36,7 +42,8 @@ export default class App extends React.Component<{}, formStruct> {
 
       this.setState({error_response: ''});
 
-      fetch('/get_prompt', {
+      // fetch('/get_prompt', {
+      fetch('/get_infor', {
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(data),
@@ -71,13 +78,19 @@ export default class App extends React.Component<{}, formStruct> {
               placeholder="Enter API KEY"
               type="password"
             />
-            <TextInputField
+            {/* <TextInputField
               id="chat-website-url"
               label="Enter the website URL"
               required
               name='chat_site_url'
               placeholder="Enter Website URL"
-            />
+            /> */}
+            <Pane>
+                <Label htmlFor="textarea-2" marginBottom={4} display="block">
+                  Selected Content
+                </Label>
+                <Textarea id="chat_site_content" name='chat_site_content' placeholder="Enter Content" />
+              </Pane>
             <Pane>
               <Label htmlFor="textarea-2" marginBottom={4} display="block">
                 Enter Prompt

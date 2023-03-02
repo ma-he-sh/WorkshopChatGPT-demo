@@ -69,6 +69,7 @@ def valid_key():
 
     resp = {
         'success': True,
+        'response': 'Saved the API-KEY'
     }
 
     return send_response(True, resp)
@@ -79,27 +80,13 @@ def get_infor():
     payload = request.json
     
     api_key = payload['api_key']
-    site_url= payload['site_url']
+    chat_site_content = payload['chat_site_content']
     prompt  = payload['prompt']
 
     if api_key is None or len(api_key) == 0:
         resp = {
             'success': False,
             'response': 'API KEY required'
-        }
-        return send_response( False, resp )
-
-    if site_url is None or len(site_url) == 0:
-        resp = {
-            'success': False,
-            'response': 'SITE URL required'
-        }
-        return send_response( False, resp )
-
-    if not validators.url( site_url ):
-        resp = {
-            'success': False,
-            'response': 'SITE URL invalid'
         }
         return send_response( False, resp )
 
@@ -126,15 +113,8 @@ def get_infor():
         }
         return send_response( False, resp )
 
-    if not pageContent:
-        resp = {
-            'success': False,
-            'response': 'No content selected'
-        }
-        return send_response( False, resp )
-
     model = ModelGPT( "", api_key )
-    response = model.get_message( prompt, pageContent )
+    response = model.get_message( prompt, chat_site_content )
 
     resp = {
         'success': True,

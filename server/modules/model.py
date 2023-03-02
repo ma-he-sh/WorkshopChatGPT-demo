@@ -36,7 +36,6 @@ class ModelGPT:
         # extract the summary from the response
         if len(summary) > 0:
             message = " ".join(summary)
-
-        message += f"{user_prompt}:\n{message}\n"
+        
         return message
     
