@@ -38,6 +38,112 @@ def root():
 
     return render_template('index.html', mapdata=maps, curr_session=uuid.uuid4())
 
+@app.route('/valid_key', methods=['POST'])
+def valid_key():
+    payload = request.json
+
+    api_key = payload['api_key']
+
+    if api_key is None or len(api_key) == 0:
+        resp = {
+            'success': False,
+            'response': 'API KEY required'
+        }
+        return send_response( False, resp )
+
+    # validate if token is valid
+    validToken = True
+    openai.api_key = api_key
+    try: 
+        models = openai.Model.list()
+    except:
+        print('Error')
+        validToken=False
+
+    if not validToken:
+        resp = {
+            'success': False,
+            'response': 'Invalid API-KEY'
+        }
+        return send_response( False, resp )
+
+    resp = {
+        'success': True,
+    }
+
+    return send_response(True, resp)
+    
+
+@app.route('/get_infor', methods=['POST'])
+def get_infor():
+    payload = request.json
+    
+    api_key = payload['api_key']
+    site_url= payload['site_url']
+    prompt  = payload['prompt']
+
+    if api_key is None or len(api_key) == 0:
+        resp = {
+            'success': False,
+            'response': 'API KEY required'
+        }
+        return send_response( False, resp )
+
+    if site_url is None or len(site_url) == 0:
+        resp = {
+            'success': False,
+            'response': 'SITE URL required'
+        }
+        return send_response( False, resp )
+
+    if not validators.url( site_url ):
+        resp = {
+            'success': False,
+            'response': 'SITE URL invalid'
+        }
+        return send_response( False, resp )
+
+    if prompt is None or len(prompt) == 0:
+        resp = {
+            'success': False,
+            'response': 'PROMPT required'
+        }
+        return send_response( False, resp )
+
+    # validate if token is valid
+    validToken = True
+    openai.api_key = api_key
+    try: 
+        models = openai.Model.list()
+    except:
+        print('Error')
+        validToken=False
+
+    if not validToken:
+        resp = {
+            'success': False,
+            'response': 'Invalid API-KEY'
+        }
+        return send_response( False, resp )
+
+    if not pageContent:
+        resp = {
+            'success': False,
+            'response': 'No content selected'
+        }
+        return send_response( False, resp )
+
+    model = ModelGPT( "", api_key )
+    response = model.get_message( prompt, pageContent )
+
+    resp = {
+        'success': True,
+        'prompt' : prompt,
+        'response': response
+    }
+
+    return send_response(True, resp)
+
 @app.route('/get_prompt', methods=['POST'])
 def get_prompt():
     payload = request.json
