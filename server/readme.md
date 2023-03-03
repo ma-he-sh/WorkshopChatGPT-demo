@@ -1,9 +1,6 @@
-## Compile React
+## Compile UI
 
 ```sh
-yarn start
-yarn build
+yarn start # for testing
+yarn build # build the react
 ```
-
-// use a token a refer to previous message
-// use a uuid for the current session (no need for database)
