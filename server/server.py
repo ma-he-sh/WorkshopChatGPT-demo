@@ -2,6 +2,8 @@ import uuid
 
 from flask import Flask, Response, redirect, render_template, request, jsonify
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
+
 from config import config
 from modules.db.db import DB
 from modules.db.sessions import SessionHandler
@@ -22,6 +24,7 @@ webdb.db_create()
 webdb.close()
 
 app = Flask(__name__, static_url_path='/static', static_folder='build/static', template_folder='build')
+CORS(app)
 
 def send_response(is_success=False, payload=None):
     if payload is None:
