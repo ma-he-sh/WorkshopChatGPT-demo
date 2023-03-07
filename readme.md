@@ -8,4 +8,4 @@ https://platform.openai.com/
 - Create API Key: https://platform.openai.com/account/api-keys
 
 ### Full Working Demo application
-- 
+- https://github.com/ma-he-sh/WorkshopChatGPT-demo/blob/main/working_application/readme.md
