@@ -1,0 +1,7 @@
+flask_bcrypt
+rethinkdb
+validators
+requests
+bs4
+openai
+flask-cors

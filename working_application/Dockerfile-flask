@@ -1,0 +1,18 @@
+# Dockerfile Flask
+FROM python:3.10
+ENV APP ./server
+
+RUN mkdir $APP
+WORKDIR $APP
+
+EXPOSE 8000
+
+COPY /server/requirements.txt .
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt --upgrade
+RUN pip install Flask
+RUN pip install Flask-Cors
+RUN python -m pip list
+
+COPY . .
