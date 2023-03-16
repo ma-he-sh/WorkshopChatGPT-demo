@@ -12,9 +12,10 @@ https://platform.openai.com/
 
 ### Full Working Demo application (demo available on https://demogpt.metaai.dev/ )
 - https://github.com/ma-he-sh/WorkshopChatGPT-demo/blob/main/working_application/readme.md
-
+![alt text](https://raw.githubusercontent.com/ma-he-sh/WorkshopChatGPT-demo/main/working_application/images/uipreview.png "Web Preview")
 
 ### Resources:
 - State of AI : https://www.stateof.ai/
 - OpenAI quick start: https://platform.openai.com/docs/api-reference/introduction
 - OpenAI CookBook: https://github.com/openai/openai-cookbook
+
