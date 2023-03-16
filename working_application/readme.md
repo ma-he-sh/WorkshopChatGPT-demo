@@ -28,4 +28,4 @@ docker-compose up -d --build
 ```
 6. Goto https://myapp.local
 7. Following UI Appear
-![alt text](/images/uipreview.png "Web Preview")
+![alt text](https://raw.githubusercontent.com/ma-he-sh/WorkshopChatGPT-demo/main/working_application/images/uipreview.png "Web Preview")
